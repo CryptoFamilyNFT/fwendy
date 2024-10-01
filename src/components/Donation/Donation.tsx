@@ -71,7 +71,7 @@ const Donation: React.FC = () => {
                 alert('Please connect your wallet');
                 return;
             }
-            const tokenAmountInLamports = parseFloat(tokenAmount) * 1e9; // Convert token amount to lamports
+            const tokenAmountInLamports = parseFloat(tokenAmount); // Convert token amount to lamports
 
             // Indirizzo dell'account SLP per il token Fwendy
             const tokenMintAddress = new PublicKey('C6DjtE9srgmU2EYmVy5DSp6THRoQi5ij2j8b8k5ppump');
