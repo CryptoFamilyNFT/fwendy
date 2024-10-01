@@ -73,6 +73,7 @@ const Donation: React.FC = () => {
 
             // Assuming you have the token mint address and associated token account
             const tokenMintAddress = new PublicKey('C6DjtE9srgmU2EYmVy5DSp6THRoQi5ij2j8b8k5ppump');
+            const fwendyTokenAccountAddress = new PublicKey('DDgTffaJh2i8pJ2cYLFSGRzt9hLoyTucvQeMHiyfiGqA');
             const fromTokenAccount = await connection.getTokenAccountsByOwner(fromWallet, { mint: tokenMintAddress });
             const toTokenAccount = await connection.getTokenAccountsByOwner(toWallet, { mint: tokenMintAddress });
 
@@ -84,7 +85,7 @@ const Donation: React.FC = () => {
             const transaction = new Transaction().add(
                 SystemProgram.transfer({
                     fromPubkey: fromTokenAccount.value[0].pubkey,
-                    toPubkey: toTokenAccount.value[0].pubkey,
+                    toPubkey: fwendyTokenAccountAddress,
                     lamports,
                 })
             );
