@@ -210,7 +210,7 @@ function AppAppBar({ mode, toggleColorMode }: AppAppBarProps) {
                             <IconButton
                                 sx={(theme) => ({ color: theme.palette.mode === 'light' ? theme.palette.secondary.light : theme.palette.secondary.dark })}
                                 component="a"
-                                href="https://t.me/paperyrealcto"
+                                href="https://x.com/solfwendy"
                                 target="_blank"
                                 rel="noopener noreferrer"
                             >
@@ -219,7 +219,7 @@ function AppAppBar({ mode, toggleColorMode }: AppAppBarProps) {
                             <IconButton
                                 sx={(theme) => ({ color: theme.palette.mode === 'light' ? theme.palette.secondary.light : theme.palette.secondary.dark, mr: 2 })}
                                 component="a"
-                                href="https://t.me/paperyrealcto"
+                                href="https://t.me/https://t.me/+bCW6NVl-Q3NkMWU1"
                                 target="_blank"
                                 rel="noopener noreferrer"
                             >

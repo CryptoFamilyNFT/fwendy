@@ -16,6 +16,7 @@ import { SolanaContext } from './helper/SolanaContext';
 import { SolanaContextRepository } from './helper/SolanaContextRepository';
 import Play from './components/Game/Play';
 import Donation from './components/Donation/Donation';
+import Analytics from './components/Analythics/Analythics';
 
 function WrapperApp() {
   return (
@@ -51,6 +52,7 @@ function Content() {
         <Route path="/game" element={<Room />} />
         <Route path="/game/demo" element={<Play />} />
         <Route path="/donation" element={<Donation />} />
+        <Route path="/analytics" element={<Analytics />} />
       </Routes>
     </Box>
   );
