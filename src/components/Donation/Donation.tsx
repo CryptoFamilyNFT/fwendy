@@ -10,10 +10,18 @@ const Donation: React.FC = () => {
     const walletAddress = 'ErBfYzyL8otbrYvnP2fN9ChH6vwsK7ojmbRuAko7yuUT';
     const { publicKey, signTransaction } = useWallet(); //need to get the balance of sol from user
     const { connection } = useConnection();
+    const [selectedToken, setSelectedToken] = useState<string>('');
+    const [tokenBalance, setTokenBalance] = useState<number>(0);
+    const [tokenAmount, setTokenAmount] = useState<string>('');
 
     const HanldeButtonDonate = async (donation: string) => {
         setAmount(donation)
         await handleDonate
+    }
+
+    const HanldeButtonDonateFwendy = async (donation: string) => {
+        setTokenAmount(donation)
+        await handleDonateFwendy
     }
 
     const handleDonate = async () => {
@@ -53,6 +61,58 @@ const Donation: React.FC = () => {
         }
     };
 
+    const handleDonateFwendy = async () => {
+        try {
+            const fromWallet = publicKey;
+            if (!fromWallet) {
+                alert('Please connect your wallet');
+                return;
+            }
+            const toWallet = new PublicKey(walletAddress);
+            const lamports = parseFloat(tokenAmount) * 1e9; // Convert token amount to lamports
+
+            // Assuming you have the token mint address and associated token account
+            const tokenMintAddress = new PublicKey('C6DjtE9srgmU2EYmVy5DSp6THRoQi5ij2j8b8k5ppump');
+            const fromTokenAccount = await connection.getTokenAccountsByOwner(fromWallet, { mint: tokenMintAddress });
+            const toTokenAccount = await connection.getTokenAccountsByOwner(toWallet, { mint: tokenMintAddress });
+
+            if (fromTokenAccount.value.length === 0 || toTokenAccount.value.length === 0) {
+                alert('Token account not found');
+                return;
+            }
+
+            const transaction = new Transaction().add(
+                SystemProgram.transfer({
+                    fromPubkey: fromTokenAccount.value[0].pubkey,
+                    toPubkey: toTokenAccount.value[0].pubkey,
+                    lamports,
+                })
+            );
+
+            const { blockhash } = await connection.getRecentBlockhash();
+            transaction.recentBlockhash = blockhash;
+            transaction.feePayer = fromWallet;
+
+            if (!signTransaction) {
+                alert('Please connect your wallet');
+                return;
+            }
+            const signedTransaction = await signTransaction(transaction);
+            const signature = await connection.sendRawTransaction(signedTransaction.serialize());
+            await connection.confirmTransaction(signature, 'processed');
+
+            alert('Token donation successful! Thank you');
+        } catch (error) {
+            console.error('Token donation failed', error);
+            alert('Token donation failed');
+        }
+    };
+
+    const tokens = [
+        { mint: 'C6DjtE9srgmU2EYmVy5DSp6THRoQi5ij2j8b8k5ppump', name: 'Fwendy' },
+        // Add more tokens as needed
+    ];
+
     return (
         <Box sx={(theme) => ({
             backgroundColor: theme.palette.mode === 'light' ? 'rgba(0,0,0, 0.2)' : 'rgba(0,0,0, 0.2)',
@@ -66,10 +126,10 @@ const Donation: React.FC = () => {
             gap: 10,
             position: 'relative',
             padding: 2,
-            display: 'flex',
-            flexDirection: 'row',
             overflowY: 'auto',
         })}>
+            <ParticlesComponent />
+
             <div style={{
                 content: '""',
                 position: 'absolute',
@@ -82,15 +142,14 @@ const Donation: React.FC = () => {
                 zIndex: 0,
                 borderRadius: 10,
             }}></div>
-            <ParticlesComponent />
-            <Box sx={{ zIndex: 1, display: 'flex', flexDirection: 'column', width: '100%', alignItems: 'center' }}>
-                <Box>
-                    <img src={asset} width="300" height="300" alt="Fwendy" style={{border: '2px solid transparent', borderRadius: '50%'}} />
+            <Box sx={{ zIndex: 1, display: 'flex', flexDirection: 'column', width: '100%', alignItems: 'center', justifyContent: 'center' }}>
+                <Box sx={{zIndex: 1}}>
+                    <img src={asset} width="100" height="100" alt="Fwendy" style={{ border: '2px solid transparent', borderRadius: '50%' }} />
                 </Box>
-                <Typography variant="body1" color="white" gutterBottom>
+                <Typography sx={{zIndex: 1}} variant="body1" color="white" gutterBottom>
                     dwonate few sol to the fwendy developer
                 </Typography>
-                <Box width="100%" sx={{display: 'flex', flexDirection: 'row', justifyContent: 'center', gap: 2}}>
+                <Box width="100%" sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', gap: 2 }}>
                     <Button variant="contained" onClick={() => HanldeButtonDonate('0.1')}>0.1 SOL</Button>
                     <Button variant="contained" onClick={() => HanldeButtonDonate('0.5')}>0.5 SOL</Button>
                     <Button variant="contained" onClick={() => HanldeButtonDonate('1')}>1 SOL 💙</Button>
@@ -114,7 +173,34 @@ const Donation: React.FC = () => {
                 <Button variant="contained" color="primary" onClick={handleDonate}>
                     Donate
                 </Button>
-                <Alert severity="info" sx={(theme) => ({ marginTop: 10, border: `2px solid ${theme.palette.primary.light}`, width: '100%' })}>
+                <Typography sx={{zIndex: 1,mt: 2}} variant="body1" color="white" gutterBottom>
+                    ...or dwonate few $fwendy tokens to the developer
+                </Typography>
+                <Box width="100%" sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', gap: 2 }}>
+                    <Button variant="contained" onClick={() => HanldeButtonDonateFwendy('100000')}>100k</Button>
+                    <Button variant="contained" onClick={() => HanldeButtonDonateFwendy('500000')}>500k</Button>
+                    <Button variant="contained" onClick={() => HanldeButtonDonateFwendy('1000000')}>1M 💙</Button>
+                    <Button variant="contained" onClick={() => HanldeButtonDonateFwendy('5000000')}>5M 🔥</Button>
+                </Box>
+                <TextField
+                    label="Token Amount"
+                    variant="outlined"
+                    type="number"
+                    value={tokenAmount}
+                    onChange={(e: any) => setTokenAmount(e.target.value)}
+                    fullWidth
+                    margin="normal"
+                    InputLabelProps={{
+                        style: { color: customColors.primaryDark },
+                    }}
+                    InputProps={{
+                        style: { color: customColors.primaryDark, border: `2px solid ${customColors.primaryDark}` },
+                    }}
+                />
+                <Button variant="contained" color="primary" onClick={handleDonateFwendy}>
+                    Donate
+                </Button>
+                <Alert severity="info" sx={(theme) => ({zIndex: 1, marginTop: 5, border: `2px solid ${theme.palette.primary.light}`, width: '100%' })}>
                     <AlertTitle>Every donation will be used to improve the game, develop new features and maintain the Dapp! Any help will be appreciated 💙
                     </AlertTitle>
                 </Alert>
