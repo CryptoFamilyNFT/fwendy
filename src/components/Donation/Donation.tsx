@@ -5,6 +5,8 @@ import { useConnection, useWallet } from '@solana/wallet-adapter-react';
 import { customColors } from '../../theme/Theme';
 import ParticlesComponent from '../../theme/Particles';
 import asset from '../../assets/asset.webp';
+import { TOKEN_PROGRAM_ID, createTransferInstruction } from '@solana/spl-token';
+
 const Donation: React.FC = () => {
     const [amount, setAmount] = useState<string>('');
     const walletAddress = 'ErBfYzyL8otbrYvnP2fN9ChH6vwsK7ojmbRuAko7yuUT';
@@ -61,6 +63,7 @@ const Donation: React.FC = () => {
         }
     };
 
+
     const handleDonateFwendy = async () => {
         try {
             const fromWallet = publicKey;
@@ -68,26 +71,27 @@ const Donation: React.FC = () => {
                 alert('Please connect your wallet');
                 return;
             }
-            const toWallet = new PublicKey(walletAddress);
-            const lamports = parseFloat(tokenAmount) * 1e9; // Convert token amount to lamports
+            const tokenAmountInLamports = parseFloat(tokenAmount) * 1e9; // Convert token amount to lamports
 
-            // Assuming you have the token mint address and associated token account
+            // Indirizzo dell'account SLP per il token Fwendy
             const tokenMintAddress = new PublicKey('C6DjtE9srgmU2EYmVy5DSp6THRoQi5ij2j8b8k5ppump');
             const fwendyTokenAccountAddress = new PublicKey('DDgTffaJh2i8pJ2cYLFSGRzt9hLoyTucvQeMHiyfiGqA');
-            const fromTokenAccount = await connection.getTokenAccountsByOwner(fromWallet, { mint: tokenMintAddress });
-            const toTokenAccount = await connection.getTokenAccountsByOwner(toWallet, { mint: tokenMintAddress });
 
-            if (fromTokenAccount.value.length === 0 || toTokenAccount.value.length === 0) {
-                alert('Token account not found');
+            const fromTokenAccount = await connection.getTokenAccountsByOwner(fromWallet, { mint: tokenMintAddress });
+            if (fromTokenAccount.value.length === 0) {
+                alert('Token account not found for the sender');
                 return;
             }
 
             const transaction = new Transaction().add(
-                SystemProgram.transfer({
-                    fromPubkey: fromTokenAccount.value[0].pubkey,
-                    toPubkey: fwendyTokenAccountAddress,
-                    lamports,
-                })
+                createTransferInstruction(
+                    fromTokenAccount.value[0].pubkey,
+                    fwendyTokenAccountAddress,
+                    fromWallet,
+                    tokenAmountInLamports,
+                    [],
+                    TOKEN_PROGRAM_ID
+                )
             );
 
             const { blockhash } = await connection.getRecentBlockhash();
@@ -144,10 +148,10 @@ const Donation: React.FC = () => {
                 borderRadius: 10,
             }}></div>
             <Box sx={{ zIndex: 1, display: 'flex', flexDirection: 'column', width: '100%', alignItems: 'center', justifyContent: 'center' }}>
-                <Box sx={{zIndex: 1}}>
+                <Box sx={{ zIndex: 1 }}>
                     <img src={asset} width="100" height="100" alt="Fwendy" style={{ border: '2px solid transparent', borderRadius: '50%' }} />
                 </Box>
-                <Typography sx={{zIndex: 1}} variant="body1" color="white" gutterBottom>
+                <Typography sx={{ zIndex: 1 }} variant="body1" color="white" gutterBottom>
                     dwonate few sol to the fwendy developer
                 </Typography>
                 <Box width="100%" sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', gap: 2 }}>
@@ -174,7 +178,7 @@ const Donation: React.FC = () => {
                 <Button variant="contained" color="primary" onClick={handleDonate}>
                     Donate
                 </Button>
-                <Typography sx={{zIndex: 1,mt: 2}} variant="body1" color="white" gutterBottom>
+                <Typography sx={{ zIndex: 1, mt: 2 }} variant="body1" color="white" gutterBottom>
                     ...or dwonate few $fwendy tokens to the developer
                 </Typography>
                 <Box width="100%" sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', gap: 2 }}>
@@ -201,7 +205,7 @@ const Donation: React.FC = () => {
                 <Button variant="contained" color="primary" onClick={handleDonateFwendy}>
                     Donate
                 </Button>
-                <Alert severity="info" sx={(theme) => ({zIndex: 1, marginTop: 5, border: `2px solid ${theme.palette.primary.light}`, width: '100%' })}>
+                <Alert severity="info" sx={(theme) => ({ zIndex: 1, marginTop: 5, border: `2px solid ${theme.palette.primary.light}`, width: '100%' })}>
                     <AlertTitle>Every donation will be used to improve the game, develop new features and maintain the Dapp! Any help will be appreciated 💙
                     </AlertTitle>
                 </Alert>
