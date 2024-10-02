@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { ISolanaContext } from "./ISolanaContext";
 import AddressFactory from "../common/AddressFactory";
 import { IUser } from "../entities/IUser";
 import { IToast } from "../entities/IToast";
-import { Adapter, WalletAdapterNetwork } from '@solana/wallet-adapter-base';
+import { Adapter } from '@solana/wallet-adapter-base';
 import { SolflareWalletAdapter } from '@solana/wallet-adapter-wallets';
 import { AccountInfo, Connection, GetProgramAccountsFilter, GetProgramAccountsResponse, PublicKey } from '@solana/web3.js';
 import '@solana/wallet-adapter-react-ui/styles.css';
@@ -89,14 +90,14 @@ export default class SolanaHelper {
 
     public static getChainId(): number { return process.env.REACT_APP_CHAINID ? Number(process.env.REACT_APP_CHAINID) : 137; }
 
-    public static PAPERY_SOL_LP_V4_POOL_KEY = '579KdT9okDg9BC3ptNH6sj359qzs581SQiGDbEqM4iVJ';
+    public static fwendy_SOL_LP_V4_POOL_KEY = '579KdT9okDg9BC3ptNH6sj359qzs581SQiGDbEqM4iVJ';
     public static RAYDIUM_LIQUIDITY_JSON = 'https://api.raydium.io/v4/sdk/liquidity/mainnet.json';
     static RAYDIUM_V4_PROGRAM_ID = '675kPX9MHTjS2zt1qfr1NYHuzeLXfQM9H24wFSUt1Mp8'
 
     public static initialAccount(): IUser {
         return {
             balanceSol: 0,
-            balancePapery: 0,
+            balancefwendy: 0,
             connected: false
         } as IUser;
     }
@@ -143,19 +144,19 @@ export default class SolanaHelper {
             ];
 
             const accounts = await connection.getParsedProgramAccounts(tokenProgram, { filters });
-            const userBalancePapery = accounts.map((account) => {
+            const userBalancefwendy = accounts.map((account) => {
                 const parsedAccountInfo: any = account.account.data;
                 const tokenBalance: number = parsedAccountInfo["parsed"]["info"]["tokenAmount"]["uiAmount"];
                 return tokenBalance;
             });
 
-            return userBalancePapery;
+            return userBalancefwendy;
         }
 
         async function getBalances(): Promise<number[]> {
             const balance_ = await connection.getBalance(publicKey);
-            const paperyBalance: number[] = await getTokenAccounts(publicKey.toString());
-            return [balance_, paperyBalance[0]];
+            const fwendyBalance: number[] = await getTokenAccounts(publicKey.toString());
+            return [balance_, fwendyBalance[0]];
         }
 
         const balances = getBalances() ?? [0, 0];
@@ -287,7 +288,7 @@ export default class SolanaHelper {
         try {
             const layout = LIQUIDITY_STATE_LAYOUT_V4;
 
-            const info = await connection.getAccountInfo(new PublicKey(this.PAPERY_SOL_LP_V4_POOL_KEY));
+            const info = await connection.getAccountInfo(new PublicKey(this.fwendy_SOL_LP_V4_POOL_KEY));
             if (!info) return;
             const poolState = LIQUIDITY_STATE_LAYOUT_V4.decode(info.data) as LiquidityStateV4;
 
@@ -431,7 +432,7 @@ export default class SolanaHelper {
         if (signer) {
             const balances = await this.getBalances(signer, provider, context)
                 .then((res) => {
-                    context.balancePapery = res[1];
+                    context.balancefwendy = res[1];
                     context.balanceSol = res[0];
                 })
                 .catch((error: any) => {

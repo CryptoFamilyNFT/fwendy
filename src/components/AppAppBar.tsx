@@ -12,15 +12,15 @@ import Drawer from '@mui/material/Drawer';
 import ToggleColorMode from './ToggleColorMode';
 import MenuTwoToneIcon from '@mui/icons-material/MenuTwoTone';
 import { WalletDisconnectButton, WalletModalProvider, WalletMultiButton } from '@solana/wallet-adapter-react-ui';
-import { ISolanaContext } from '../helper/ISolanaContext';
+//import { ISolanaContext } from '../helper/ISolanaContext';
 import { Link as RouterLink } from 'react-router-dom';
 import { Telegram } from '@mui/icons-material';
 import TwitterIcon from '@mui/icons-material/Twitter'
 import { SolanaContext } from '../helper/SolanaContext';
 import { SolanaContextRepository } from '../helper/SolanaContextRepository';
 import { IPair } from '../helper/DSHelper';
-import { useConnection, useWallet } from '@solana/wallet-adapter-react';
-import { PublicKey } from '@solana/web3.js';
+import { useWallet } from '@solana/wallet-adapter-react';
+//import { PublicKey } from '@solana/web3.js';
 import SolanaHelper from '../helper/SolanaHelper';
 import CloseIcon from '@mui/icons-material/Close';
 import { customColors } from '../theme/Theme';

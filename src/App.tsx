@@ -11,12 +11,11 @@ import bg_light from './assets/bg_light.png';
 import ParticlesComponent from './theme/Particles';
 import Swap from './components/Swap/Swap';
 import Room from './components/Game/Room';
-import SolanaHelper from './helper/SolanaHelper';
-import { SolanaContext } from './helper/SolanaContext';
-import { SolanaContextRepository } from './helper/SolanaContextRepository';
+//import { SolanaContext } from './helper/SolanaContext';
+//import { SolanaContextRepository } from './helper/SolanaContextRepository';
 import Play from './components/Game/Play';
 import Donation from './components/Donation/Donation';
-import Analytics from './components/Analythics/Analythics';
+import Analytics from './components/Analytics/Analytics';
 
 function WrapperApp() {
   return (
@@ -60,7 +59,7 @@ function Content() {
 
 function App() {
   const [mode, setMode] = React.useState<PaletteMode>('light');
-  const {context} = React.useContext(SolanaContext) as SolanaContextRepository;
+  //const {context} = React.useContext(SolanaContext) as SolanaContextRepository;
 
   const toggleColorMode = () => {
     setMode((prev) => (prev === 'dark' ? 'light' : 'dark'));

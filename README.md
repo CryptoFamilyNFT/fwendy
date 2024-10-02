@@ -1,47 +1,33 @@
-# Getting Started with Create React App
+```markdown
+# Welcome to Fwendy CTO 🔵
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+![Fwendy Logo](https://dapp.fwendy.fun/static/media/asset.3e90dc7c73cd8f911dee.webp)
 
-## Available Scripts
+## About Us
 
-In the project directory, you can run:
+*FWENDY* is more than just a memecoin; it’s a symbol of friendship, art, and positivity. Originally imagined by our talented artist, FWENDY was inspired by the creative spirit behind iconic meme legends like PEPE, Andy, Brett, and Landwolf, developed by *@Matt_Furie*. FWENDY brings a fresh twist to this legacy by introducing *“The Fwendliest Girl in the Boy’s Club”* embodying inclusivity and fun.
 
-### `npm start`
+## Our Mission
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+We aim to create a collaborative environment where everyone can contribute and make a difference. The project has been taken over by its passionate community, emphasizing collaboration, creativity, and a strong positive ethos. We aim to blend meme culture with meaningful engagement, launching various initiatives like art competitions, farming programs, and social impact projects. We believe in the power of community to shape the direction of the project and ensure it remains open and accessible to all.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Connect with Us
 
-### `npm test`
+Follow us on social media to stay updated:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- [![Twitter](🔵)](https://x.com/solfwendy)
+- [![Website](🔵)](https://fwendy.fun/)
+- [![Telegram](🔵)](https://t.me/+bCW6NVl-Q3NkMWU1)
+- [![Solscan](🔵)](https://solscan.io/token/C6DjtE9srgmU2EYmVy5DSp6THRoQi5ij2j8b8k5ppump)
 
-### `npm run build`
+## Join the Community
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Be a part of our journey and help us take Fwendy to the next level!
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+![Community Image](https://dd.dexscreener.com/ds-data/tokens/solana/C6DjtE9srgmU2EYmVy5DSp6THRoQi5ij2j8b8k5ppump/header.png)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+---
 
-### `npm run eject`
+*Thank you for being a part of Fwendy CTO!*
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-# fwendy
+```

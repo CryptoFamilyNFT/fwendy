@@ -4,7 +4,7 @@ export interface IUser {
     user?: string,
     address?: string,
     balanceSol?: number,
-    balancePapery?: number,
+    balancefwendy?: number,
     isConnected?: boolean,
     publicKey?: PublicKey,
 }

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { ChangeEvent, MouseEventHandler, useContext, useEffect, useState, } from 'react';
 import { Box, Button, InputAdornment, MenuItem, Select, TextField, Typography, Divider, TextFieldProps, TextFieldVariants, Alert, IconButton, Backdrop, Slider, Switch, Chip, Modal } from '@mui/material';
 import SwapHorizIcon from '@mui/icons-material/SwapHoriz';
@@ -58,12 +59,11 @@ const Swap = () => {
     // Dummy conversion function
     const convertAmount = (amount: string, from: string, to: string) => {
         if (!amount) return '0';
-        // This is a placeholder. Implement your real conversion logic here.
         return (Number(amount) * Number(context.priceSol ?? 0)).toLocaleString('en', { maximumFractionDigits: 2 }); // Example conversion rate
     };
     // Calculate balances
     const balance = fromToken === 'FWENDY'
-        ? context.balancePapery ?? 0
+        ? context.balancefwendy ?? 0
         : (context.balanceSol ?? 0) / 1000000000;
 
     const handlePercentageClick = (percentage: number) => {

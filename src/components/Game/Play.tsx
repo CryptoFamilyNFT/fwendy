@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { Box, Button, Grid } from '@mui/material';
 import { customColors } from '../../theme/Theme';
-import Game from './game/App';
+import Game from './game/Game';
 import GetReady from './game/assets/images/getready.png'
 import bg from './game/assets/images/bg.png'
 

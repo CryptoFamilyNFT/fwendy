@@ -8,17 +8,17 @@ const Room = () => {
 
     const handleLogin = () => {
         console.log('Login cliccato');
-        // Qui va la logica per il login
+        // Qui va la logica per il login //todo organize the log with wallet
     };
 
     const handleSignup = () => {
         console.log('Signup cliccato');
-        // Qui va la logica per il signup
+        // Qui va la logica per il signup  //todo organize the db for user leaderboard and score
     };
 
     const handleDemo = () => {
         console.log('Prova la Demo cliccato');
-        // Qui va la logica per provare la demo del gioco
+        // Qui va la logica per provare la demo del gioco - //todo organize the demo
     };
 
     return (

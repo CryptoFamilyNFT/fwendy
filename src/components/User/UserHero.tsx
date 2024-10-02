@@ -1,28 +1,29 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useContext, useEffect, useState } from 'react';
 import { Box, Chip, Grid, List, ListItem, Typography, useTheme } from '@mui/material';
 import { useConnection, useWallet } from '@solana/wallet-adapter-react';
-import { PublicKey, Connection, ParsedTransactionWithMeta, ConfirmedSignatureInfo, TokenAmount, GetProgramAccountsFilter } from '@solana/web3.js';
+import { PublicKey, GetProgramAccountsFilter } from '@solana/web3.js';
 import { SolanaContext } from '../../helper/SolanaContext';
 import { SolanaContextRepository } from '../../helper/SolanaContextRepository';
 import AddressFactory from '../../common/AddressFactory';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import SellIcon from '@mui/icons-material/Sell';
-import asset from "../../assets/papery.jpg"
-import paperyuser from "../../assets/paperyuser.jpeg"
+import asset from "../../assets/fwendy.jpg"
+import fwendyuser from "../../assets/paperyuser.jpeg"
 import SolanaHelper from '../../helper/SolanaHelper';
 
 const UserHero: React.FC = () => {
     const { connection } = useConnection();
     const { context, saveContext } = useContext(SolanaContext) as SolanaContextRepository;
-    const paperyMintAddy = AddressFactory.getTokenAddress(102);
+    const fwendyMintAddy = AddressFactory.getTokenAddress(102);
     const { publicKey } = useWallet();
     const addyuser = publicKey?.toString()
     const [buyTransactions, setBuyTransactions] = useState<{ amount: number, date: string }[]>([]);
     const [sellTransactions, setSellTransactions] = useState<{ amount: number, date: string }[]>([]);
     const [profitTransactions, setProfitTransactions] = useState<{ profit: number, date: string }[]>([]);
     const [balance, setBalance] = useState<number>();
-    const [papery, setBalancePapery] = useState<number>();
-    let tokenProgram = new PublicKey("TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA")
+    const [fwendy, setBalancefwendy] = useState<number>();
+    let tokenProgram = new PublicKey("TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA") //todo move to AddreFactory class
 
     async function getTokenAccounts(wallet: string) {
         const filters: GetProgramAccountsFilter[] = [
@@ -42,14 +43,14 @@ const UserHero: React.FC = () => {
             { filters: filters }
         );
 
-        let userBalancePapery = accounts.map((account) => {
+        let userBalancefwendy = accounts.map((account) => {
             const parsedAccountInfo: any = account.account.data;
             const tokenBalance: number = parsedAccountInfo["parsed"]["info"]["tokenAmount"]["uiAmount"];
             console.log(tokenBalance)
             return tokenBalance
         })
 
-        return userBalancePapery
+        return userBalancefwendy
     }
 
     async function getBalances() {
@@ -65,7 +66,7 @@ const UserHero: React.FC = () => {
                 rayTokenAddress = acc.pubkey;
                 const accBalance = await connection.getTokenAccountBalance(rayTokenAddress);
                 const rayBal = accBalance.value.uiAmount || 0;
-                setBalancePapery(rayBal);
+                setBalancefwendy(rayBal);
             });
         }
     }
@@ -83,8 +84,8 @@ const UserHero: React.FC = () => {
             const detailedTx = await connection.getParsedTransaction(tx.signature, { maxSupportedTransactionVersion: 0 });
             if (detailedTx !== null) {
                 console.log(detailedTx)
-                const preBalance = detailedTx.meta?.preTokenBalances?.find(balance => balance.mint === paperyMintAddy);
-                const postBalance = detailedTx.meta?.postTokenBalances?.find(balance => balance.mint === paperyMintAddy);
+                const preBalance = detailedTx.meta?.preTokenBalances?.find(balance => balance.mint === fwendyMintAddy);
+                const postBalance = detailedTx.meta?.postTokenBalances?.find(balance => balance.mint === fwendyMintAddy);
 
                 console.log(preBalance)
                 console.log(postBalance)
@@ -173,7 +174,7 @@ const UserHero: React.FC = () => {
                     <Box>
                         <List>
                             <ListItem alignItems='center' sx={{ display: 'flex', flexDirection: 'row', gap: 1 }}>
-                                <img alt="" src={paperyuser} width="32px" height="32px" style={{ border: '1px solid', borderRadius: '50%' }} />
+                                <img alt="" src={fwendyuser} width="32px" height="32px" style={{ border: '1px solid', borderRadius: '50%' }} />
                                 <Typography variant="body1" color="secondary" sx={{ mt: 1 }}>
                                     {addyuser ? `${addyuser.slice(0, 5)}...${addyuser.slice(-5)}` : 'Not Connected'}
                                 </Typography>
@@ -184,7 +185,7 @@ const UserHero: React.FC = () => {
                             </ListItem>
                             <ListItem sx={{ display: 'flex', flexDirection: 'row', gap: 1 }}>
                                 <img alt="" src={asset} width="32px" height="32px" style={{ border: '1px solid', borderRadius: '50%' }} />
-                                <Typography variant='body1' color="secondary">{(papery ?? 0).toLocaleString('en', { maximumFractionDigits: 0 })} PAPERY</Typography>
+                                <Typography variant='body1' color="secondary">{(fwendy ?? 0).toLocaleString('en', { maximumFractionDigits: 0 })} fwendy</Typography>
                             </ListItem>
 
                         </List>

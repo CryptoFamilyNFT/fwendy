@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Button, TextField, Container, Typography, Box, Alert, AlertTitle } from '@mui/material';
-import { PublicKey, clusterApiUrl, Transaction, SystemProgram } from '@solana/web3.js';
+import { Button, TextField, Typography, Box, Alert, AlertTitle } from '@mui/material';
+import { PublicKey, Transaction, SystemProgram } from '@solana/web3.js';
 import { useConnection, useWallet } from '@solana/wallet-adapter-react';
 import { customColors } from '../../theme/Theme';
 import ParticlesComponent from '../../theme/Particles';
@@ -12,8 +12,6 @@ const Donation: React.FC = () => {
     const walletAddress = 'ErBfYzyL8otbrYvnP2fN9ChH6vwsK7ojmbRuAko7yuUT';
     const { publicKey, signTransaction } = useWallet(); //need to get the balance of sol from user
     const { connection } = useConnection();
-    const [selectedToken, setSelectedToken] = useState<string>('');
-    const [tokenBalance, setTokenBalance] = useState<number>(0);
     const [tokenAmount, setTokenAmount] = useState<string>('');
 
     const HanldeButtonDonate = async (donation: string) => {
@@ -71,9 +69,9 @@ const Donation: React.FC = () => {
                 alert('Please connect your wallet');
                 return;
             }
-            const tokenAmountInLamports = parseFloat(tokenAmount) * 1000000; // Convert token amount to lamports
+            const tokenAmountInLamports = parseFloat(tokenAmount) * 1000000; // Convert token amount from decimals
 
-            // Indirizzo dell'account SLP per il token Fwendy
+            // account SLP
             const tokenMintAddress = new PublicKey('C6DjtE9srgmU2EYmVy5DSp6THRoQi5ij2j8b8k5ppump');
             const fwendyTokenAccountAddress = new PublicKey('DDgTffaJh2i8pJ2cYLFSGRzt9hLoyTucvQeMHiyfiGqA');
 
@@ -115,7 +113,7 @@ const Donation: React.FC = () => {
 
     const tokens = [
         { mint: 'C6DjtE9srgmU2EYmVy5DSp6THRoQi5ij2j8b8k5ppump', name: 'Fwendy' },
-        // Add more tokens as needed
+        // todo - Add more tokens as needed
     ];
 
     return (
