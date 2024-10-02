@@ -1,15 +1,45 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Typography, List, ListItem, ListItemText } from '@mui/material';
-import reportWebVitals from '../../reportWebVitals';
 import { customColors } from '../../theme/Theme';
+import ReactGA from 'react-ga4';
 
 const Analytics: React.FC = () => {
     const [metrics, setMetrics] = useState<any[]>([]);
 
     useEffect(() => {
-        reportWebVitals((metric) => {
-            setMetrics((prevMetrics) => [...prevMetrics, metric]);
-        });
+        // Initialize Google Analytics
+        ReactGA.initialize('G-FN9YNE5EZE');
+
+        const fetchMetrics = async () => {
+            try {
+                // Manually fetch metrics using ReactGA
+                const activeUsers = await ReactGA.gtag('event', 'fetch', {
+                    event_category: 'activeUsers',
+                });
+                const pageViews7d = await ReactGA.gtag('event', 'fetch', {
+                    event_category: 'screenPageViews',
+                    event_label: '7daysAgo',
+                });
+                const pageViews31d = await ReactGA.gtag('event', 'fetch', {
+                    event_category: 'screenPageViews',
+                    event_label: '30daysAgo',
+                });
+
+                console.log('Active Users:', activeUsers);
+                console.log('Page Views (7d):', pageViews7d);
+                console.log('Page Views (31d):', pageViews31d);
+
+                setMetrics([
+                    { name: 'Active Users', value: activeUsers },
+                    { name: 'Page Views (7d)', value: pageViews7d },
+                    { name: 'Page Views (31d)', value: pageViews31d },
+                ]);
+            } catch (error) {
+                console.error('Failed to fetch metrics', error);
+            }
+        };
+
+        fetchMetrics();
     }, []);
 
     return (
@@ -41,16 +71,17 @@ const Analytics: React.FC = () => {
                 zIndex: 0,
                 borderRadius: 10,
             }}></div>
-            <Typography variant="h4" gutterBottom>
-                Analytics
-            </Typography>
-            <List>
-                {metrics.map((metric, index) => (
-                    <ListItem key={index}>
-                        <ListItemText primary={`${metric.name}: ${metric.value}`} />
-                    </ListItem>
-                ))}
-            </List>
+            <Box sx={{ zIndex: 1 }}>
+                <Typography variant="h4" gutterBottom></Typography>
+                    Analytics
+                <List>
+                    {metrics.map((metric, index) => (
+                        <ListItem key={index}>
+                            <ListItemText primary={`${metric.name}: ${metric.value}`} />
+                        </ListItem>
+                    ))}
+                </List>
+            </Box>
         </Box>
     );
 };
