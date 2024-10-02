@@ -20,15 +20,12 @@
 3. **Join our [Telegram](https://t.me/+bCW6NVl-Q3NkMWU1)** community to connect with other FWENDY enthusiasts.
 4. **Check out our token on [Solscan](https://solscan.io/token/C6DjtE9srgmU2EYmVy5DSp6THRoQi5ij2j8b8k5ppump)** for detailed information.
 
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## Contributing
 
-We welcome contributions! Please read our [CONTRIBUTING](CONTRIBUTING.md) guidelines before submitting a pull request.
+We welcome DOWONATION! [CONTRIBUTING](CONTRIBUTING.md) 
 
-## Acknowledgements
+## Acknowledgement
 
 Special thanks to *@Matt_Furie* for the inspiration and to all our community members for their support.
 
