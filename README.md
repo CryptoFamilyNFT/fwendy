@@ -2,8 +2,12 @@
 
 ![Fwendy Logo](https://dapp.fwendy.fun/static/media/asset.3e90dc7c73cd8f911dee.webp)
 
-## About Us
+## Blowfish verification
 
+*3387*
+*https://dapp.fwendy.fun/*
+
+## About Us
 *FWENDY* is more than just a memecoin; it’s a symbol of friendship, art, and positivity. Originally imagined by our talented artist, FWENDY was inspired by the creative spirit behind iconic meme legends like PEPE, Andy, Brett, and Landwolf, developed by *@Matt_Furie*. FWENDY brings a fresh twist to this legacy by introducing *“The Fwendliest Girl in the Boy’s Club”* embodying inclusivity and fun.
 
 ## Connect with Us
